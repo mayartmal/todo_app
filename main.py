@@ -1,13 +1,20 @@
-user_prompt = "Enter todo: "
+
 todos = list()
 
+def logic():
+    while True:
+        user_action = input("Type 'add' or 'show' or 'exit': ")
 
-while True:
-    todo = input(user_prompt)
-    print(todo.title())
-    todos.append(todo)
-    print(todos)
+        match user_action:
+            case "add":
+                todo = input("Enter a todo: ")
+                todos.append(todo)
+            case "show":
+                print(todos)
+            case "exit":
+                break
 
 
-while 2>1 :
-    pass
+
+if __name__ == '__main__':
+    logic()
