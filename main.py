@@ -8,22 +8,13 @@ def logic():
                 todo = input("Enter a todo: ") + "\n"
                 with open('files/todos.txt', 'r') as file:
                     todos = file.readlines()
-                    file.close()
-                todos.append(todo)
+                    todos.append(todo)
                 with open('files/todos.txt', 'w') as file:
                     file.writelines(todos)
-                    file.close()
             case "show" | "display":
                 file = open('files/todos.txt', 'r')
                 todos = file.readlines()
                 file.close()
-                # below is the way to remove \n from hole list with comprehensions
-                # new_todos = [item.strip('\n') for item in todos]
-                # !!! here is list comprehensions logic
-                # format  new var = [item.action() for item in items]
-                # new_todos = []
-                # for t in todos:
-                #     new_todos.append(t.strip('\n'))
                 for i, t in enumerate(todos):
                     t = t.strip('\n')
                     row = f"{i+1}) {t.title()}"
@@ -40,7 +31,6 @@ def logic():
                         todos[todo_number] = new_todo
                 with open('files/todos.txt', 'w') as file:
                     file.writelines(todos)
-                    file.close()
             case 'complete':
                 with open('files/todos.txt', 'r') as file:
                     todos = file.readlines()
@@ -48,10 +38,17 @@ def logic():
                         print("Nothing to complete")
                     else:
                         todo_number = int(input("Input number of todo to complete: ")) - 1
+                        completed_todo = todos[todo_number]
                         todos.pop(todo_number)
                 with open('files/todos.txt', 'w') as file:
                     file.writelines(todos)
-                    file.close()
+                message = f'Todo "{completed_todo.strip('\n').title()}" was completed'
+                print(message)
+                print("Current to do list is: ")
+                for i, t in enumerate(todos):
+                    t = t.strip('\n')
+                    row = f"{i+1}) {t.title()}"
+                    print(row)
             case "exit":
                 break
             case _:
