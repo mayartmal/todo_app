@@ -6,13 +6,13 @@ def logic():
         match user_action:
             case "add":
                 todo = input("Enter a todo: ") + "\n"
-                file = open('files/todos.txt', 'r')
-                todos = file.readlines()
-                file.close()
+                with open('files/todos.txt', 'r') as file:
+                    todos = file.readlines()
+                    file.close()
                 todos.append(todo)
-                file = open('files/todos.txt', 'w')
-                file.writelines(todos)
-                file.close()
+                with open('files/todos.txt', 'w') as file:
+                    file.writelines(todos)
+                    file.close()
             case "show" | "display":
                 file = open('files/todos.txt', 'r')
                 todos = file.readlines()
@@ -29,23 +29,29 @@ def logic():
                     row = f"{i+1}) {t.title()}"
                     print(row)
             case "edit":
-                file = open('files/todos.txt', 'r')
-                todos = file.readlines()
-                if len(todos) == 0:
-                    print("Nothing to edit")
-                else:
-                    todo_number = int(input("Input number of todo to edit: ")) - 1
-                    print("Existing todo is:", todos[todo_number])
-                    new_todo = input("Enter a new todo: ")
-                    todos[todo_number] = new_todo
+                with open('files/todos.txt', 'r') as file:
+                    todos = file.readlines()
+                    if len(todos) == 0:
+                        print("Nothing to edit")
+                    else:
+                        todo_number = int(input("Input number of todo to edit: ")) - 1
+                        print("Existing todo is:", todos[todo_number])
+                        new_todo = input("Enter a new todo: ") + "\n"
+                        todos[todo_number] = new_todo
+                with open('files/todos.txt', 'w') as file:
+                    file.writelines(todos)
+                    file.close()
             case 'complete':
-                file = open('files/todos.txt', 'r')
-                todos = file.readlines()
-                if len(todos) == 0:
-                    print("Nothing to complete")
-                else:
-                    todo_number = int(input("Input number of todo to complete: ")) - 1
-                    todos.pop(todo_number)
+                with open('files/todos.txt', 'r') as file:
+                    todos = file.readlines()
+                    if len(todos) == 0:
+                        print("Nothing to complete")
+                    else:
+                        todo_number = int(input("Input number of todo to complete: ")) - 1
+                        todos.pop(todo_number)
+                with open('files/todos.txt', 'w') as file:
+                    file.writelines(todos)
+                    file.close()
             case "exit":
                 break
             case _:
