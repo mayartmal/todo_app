@@ -3,14 +3,14 @@ def logic():
         # get user action and remove space from user action string
         user_action = input("Type 'add todo', 'edit todo number', 'complete todo number' or 'show' or 'exit': ")
         user_action = user_action.strip()
-        if "add" in user_action or "new" in user_action:
+        if user_action.startswith("add"):
             todo = user_action[4:] + '\n'
             with open('files/todos.txt', 'r') as file:
                 todos = file.readlines()
                 todos.append(todo)
             with open('files/todos.txt', 'w') as file:
                 file.writelines(todos)
-        elif "show" in user_action:
+        elif user_action.startswith("show"):
             file = open('files/todos.txt', 'r')
             todos = file.readlines()
             file.close()
@@ -18,7 +18,7 @@ def logic():
                 t = t.strip('\n')
                 row = f"{i+1}) {t.title()}"
                 print(row)
-        elif "edit" in user_action:
+        elif user_action.startswith("edit"):
             with open('files/todos.txt', 'r') as file:
                 todos = file.readlines()
                 if len(todos) == 0:
@@ -31,7 +31,7 @@ def logic():
                     todos[todo_number] = new_todo
             with open('files/todos.txt', 'w') as file:
                 file.writelines(todos)
-        elif "complete" in user_action:
+        elif user_action.startswith("complete"):
             with open('files/todos.txt', 'r') as file:
                 todos = file.readlines()
                 if len(todos) == 0:
@@ -50,7 +50,7 @@ def logic():
                 t = t.strip('\n')
                 row = f"{i+1}) {t.title()}"
                 print(row)
-        elif "exit" in user_action:
+        elif user_action.startswith("exit"):
             break
         else:
             print("Unknown command...")
