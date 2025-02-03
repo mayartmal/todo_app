@@ -1,7 +1,12 @@
 # from storage_logic import get_todos, write_todos
 import storage_logic
+import time
+
+
 
 def console_ui():
+    now = time.strftime("%b %d, %Y %H:%M:%S")
+    print(f"It's {now}")
     while True:
         # get user action and remove space from user action string
         user_action = input("Type 'add todo', 'edit todo number', 'complete todo number' or 'show' or 'exit': ")
